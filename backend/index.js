@@ -66,10 +66,10 @@ app.get('/api/pokemon', async (req, res) => {
 
 
 // Get a specific Pokémon by ID
-app.get('/api/pokemon/:id', async (req, res) => {
+app.get('/api/pokemon/:name', async (req, res) => {
     try {
-      const { id } = req.params;
-      const result = await pool.query('SELECT * FROM pokemon WHERE id = $1', [id]);
+      const { name } = req.params;
+      const result = await pool.query('SELECT * FROM pokemon WHERE name = $1', [name]);
   
       if (result.rows.length === 0) {
         return res.status(404).json({ msg: 'Pokémon not found' });
@@ -79,10 +79,15 @@ app.get('/api/pokemon/:id', async (req, res) => {
   
       // Fetch artwork from PokeAPI
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.pokedex_number}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch artwork');
+      }
       const data = await response.json();
       const artwork = data.sprites.other['official-artwork'].front_default;
+      const sprite = data.sprites.front_default;
   
       pokemon.artwork = artwork;
+      pokemon.sprite = sprite;
   
       res.json(pokemon);
     } catch (err) {
