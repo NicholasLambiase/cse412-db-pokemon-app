@@ -1,17 +1,17 @@
 -- Pokemon table schema
 CREATE TABLE Pokemon (
 	NAME VARCHAR(100) PRIMARY KEY,
-	height DECIMAL(4,2),
-	weight DECIMAL(5,2),
-	type VARCHAR(50),
-	pokedex_number INT
+	height DECIMAL(4,2) NULL,
+	weight DECIMAL(5,2) NULL,
+	type1 VARCHAR(200),
+	pokedex_number INT,
+	generation INT
 );
 
 -- Abilities table schema with foreign key reference to Pokemon and ON DELETE CASCADE
 CREATE TABLE Abilities (
 	NAME VARCHAR(100) PRIMARY KEY,
-	primary_ability VARCHAR(100),
-	hidden_ability VARCHAR(100) NULL,
+	abilities VARCHAR(300),
 	CONSTRAINT fk_pokemon_name_abilities
 		FOREIGN KEY (NAME) REFERENCES Pokemon(NAME)
 		ON DELETE CASCADE
