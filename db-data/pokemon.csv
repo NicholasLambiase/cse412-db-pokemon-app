@@ -1,4 +1,4 @@
-name,height_m,weight_kg,type1,type2,pokedex_number,generation
+name,height,weight,type1,type2,pokedex_number,generation
 Bulbasaur,0.7,6.9,grass,poison,1,1
 Ivysaur,1,13,grass,poison,2,1
 Venusaur,2,100,grass,poison,3,1

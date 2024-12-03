@@ -1,4 +1,4 @@
-name,attack,sp_attack,speed,defense,sp_defense
+name,attack,special_attack,speed,defense,special_defense
 Bulbasaur,49,65,45,49,65
 Ivysaur,62,80,60,63,80
 Venusaur,100,122,80,123,120
