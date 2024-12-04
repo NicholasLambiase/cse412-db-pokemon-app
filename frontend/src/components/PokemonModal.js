@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 
 const Ability = ({ abilities }) => {
   let abilitiesString = '';
@@ -14,6 +14,84 @@ const Ability = ({ abilities }) => {
 };
 
 function PokemonModal({ pokemon, onClose }) {
+  const modalRef = useRef();
+  const audioRef = useRef();
+
+  useEffect(() => {
+    // Set focus to the modal for accessibility
+    if (modalRef.current) {
+      modalRef.current.focus();
+    }
+
+    // Play the Pokémon's cry
+    if (pokemon) {
+      // Handle special cases for Pokémon names
+      const audioNameMap = {
+        'nidoran♂': 'nidoran-m',
+        'nidoran♀': 'nidoran-f',
+        'farfetch’d': 'farfetchd',
+        'mr. mime': 'mr_mime',
+        'mr.mime': 'mr_mime',
+        'mime jr.': 'mime_jr',
+        'mime jr': 'mime_jr',
+        "type: null": 'typenull',
+        'jangmo-o': 'jangmo-o',
+        'hakamo-o': 'hakamo-o',
+        'kommo-o': 'kommo-o',
+        'tapu koko': 'tapukoko',
+        'tapu lele': 'tapulele',
+        'tapu bulu': 'tapubulu',
+        'tapu fini': 'tapufini',
+        'flabébé': 'flabebe',
+        'zygarde 50% forme': 'zygarde',
+        // Add other special cases as needed
+      };
+
+      const pokemonName =
+        audioNameMap[pokemon.name.toLowerCase()] || pokemon.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const audioUrl = `https://play.pokemonshowdown.com/audio/cries/${pokemonName}.mp3`;
+
+      const audio = new Audio(audioUrl);
+      audio.volume = 0.5; // Adjust volume as needed
+
+      // Play the audio
+      audio
+        .play()
+        .then(() => {
+          console.log('Audio played successfully');
+        })
+        .catch((error) => {
+          console.error('Failed to play audio:', error);
+        });
+
+      // Store the audio reference
+      audioRef.current = audio;
+    }
+
+    // Cleanup on unmount
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    };
+  }, [pokemon]);
+
+  // Close modal on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
+
   if (!pokemon) return null;
 
   const abilities = pokemon.abilities.replace(/'/g, '"');

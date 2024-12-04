@@ -1,5 +1,3 @@
-// src/components/PokemonList.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PokemonDescription from "./PokemonDescription";

@@ -4,13 +4,43 @@ import axios from 'axios';
 const PokemonDescription = ({ name }) => {
   const [description, setDescription] = useState('Loading description...');
 
-  name = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    let pokemonName
+
+    // Play the Pokémon's cry
+    if (name) {
+        // Handle special cases for Pokémon names
+        const dexNameMap = {
+        'nidoran♂': 'nidoran-m',
+        'nidoran♀': 'nidoran-f',
+        'farfetch’d': 'farfetchd',
+        'mr. mime': 'mr-mime',
+        'mr.mime': 'mr-mime',
+        'mime jr.': 'mime-jr',
+        'mime jr': 'mime-jr',
+        "type: null": 'type-null',
+        'jangmo-o': 'jangmo-o',
+        'hakamo-o': 'hakamo-o',
+        'kommo-o': 'kommo-o',
+        'tapu koko': 'tapu-koko',
+        'tapu lele': 'tapu-lele',
+        'tapu bulu': 'tapu-bulu',
+        'tapu fini': 'tapu-fini',
+        'flabébé': 'flabebe',
+        'zygarde 50% forme': 'zygarde',
+        'porygon-z': 'porygon-z',
+        'ho-oh': 'ho-oh',
+
+        // Add other special cases as needed
+        };
+
+        pokemonName = dexNameMap[name.toLowerCase()] || name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
 
   useEffect(() => {
     const fetchDescription = async () => {
 
       try {
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}/`);
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemonName}/`);
         const flavorTextEntries = response.data.flavor_text_entries;
 
         // Find the first English description
