@@ -47,24 +47,45 @@ function PokemonModal({ pokemon, onClose }) {
             <Ability abilities={JSON.parse(abilities)}/>
           </span>
           </p>
-          <p>
-            <strong>HP:</strong> {pokemon.health}
-          </p>
-          <p>
-            <strong>Attack:</strong> {pokemon.attack}
-          </p>
-          <p>
-            <strong>Defense:</strong> {pokemon.defense}
-          </p>
-          <p>
-            <strong>Special Attack:</strong> {pokemon.special_attack}
-          </p>
-          <p>
-            <strong>Special Defense:</strong> {pokemon.special_defense}
-          </p>
-          <p>
-            <strong>Speed:</strong> {pokemon.speed}
-          </p>
+          <table className="min-w-full mt-2 bg-gray-600 rounded-lg overflow-hidden shadow">
+          <thead>
+            <tr>
+              <th className="py-2 px-4 bg-gray-400 text-left text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider">
+                Stat
+              </th>
+              <th className="py-2 px-4 bg-gray-400 text-left text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider">
+                Value
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="py-2 px-4 border-b border-gray-700 text-left">HP</td>
+              <td className="py-2 px-4 border-b border-gray-700 text-left">{pokemon.health}</td>
+            </tr>
+            <tr>
+              <td className="py-2 px-4 border-b border-gray-700 text-left">Attack</td>
+              <td className="py-2 px-4 border-b border-gray-700 text-left">{pokemon.attack}</td>
+            </tr>
+            <tr>
+              <td className="py-2 px-4 border-b border-gray-700 text-left">Defense</td>
+              <td className="py-2 px-4 border-b border-gray-700 text-left">{pokemon.defense}</td>
+            </tr>
+            <tr>
+              <td className="py-2 px-4 border-b border-gray-700 text-left">Special Attack</td>
+              <td className="py-2 px-4 border-b border-gray-700 text-left">{pokemon.special_attack}</td>
+            </tr>
+            <tr>
+              <td className="py-2 px-4 border-b border-gray-700 text-left">Special Defense</td>
+              <td className="py-2 px-4 border-b border-gray-700 text-left">{pokemon.special_defense}</td>
+            </tr>
+            <tr>
+              <td className="py-2 px-4 text-left">Speed</td>
+              <td className="py-2 px-4 text-left">{pokemon.speed}</td>
+            </tr>
+          </tbody>
+        </table>
+
         </div>
       </div>
     </div>

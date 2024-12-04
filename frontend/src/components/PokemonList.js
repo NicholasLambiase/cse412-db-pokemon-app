@@ -93,18 +93,8 @@ function PokemonList() {
         Get the Rest API to return all attributes for each pokemon from all tables
 
         Features to add:
-        Add in the abilities to the modal -- DONE
-        slightly more white font color -- DONE
-        Inside rows add an interior opaque section dividing the sprite from the name and data -- DONE
-        Filter how type is displayed to get rid of 'N/A' -- DONE
-
-        Decription of pokemon on the row entries -- WORKING ON IT
-
         Filter by Region
         Filter rows by primary type then the option for secondary type
-        
-        Inside rows add an interior opaque section dividing the sprite from the name and data
-        Filter by Region
         
         For way later:
         Style the Heading and selection buttons to look cooler
