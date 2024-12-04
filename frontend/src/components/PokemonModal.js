@@ -5,7 +5,7 @@ function PokemonModal({ pokemon, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg p-6 relative max-w-md w-full mx-4">
+      <div className="bg-gray-800 rounded-lg p-6 relative max-w-md w-full mx-4">
         {/* Close Button */}
         <button
           className="absolute top-3 right-4 text-gray-600 hover:text-gray-800"

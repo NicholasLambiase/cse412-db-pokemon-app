@@ -88,15 +88,30 @@ function PokemonList() {
             });
     };
       
-      
+    /*
+        Features to add:
+        Style the modal to look like a pokemon card
+            - yellow border
+            - HP in the top left with type icon
+            - Name in the top right
+            - click out of modal/remove close button
+
+        Dark mode toggle
+        Filter by Region
+        White Text for cards???
+        Decription of pokemon on the row entries
+        Inside rows add an interior opaque section dividing the sprite from the name and data
+        Mobile responsive Sprite and text size / when screen size small get rid of pokedex description
+
+    */
 
     return (
         <div className="container mx-auto mt-10">
             <h1 className="text-3xl font-bold mb-5">Pokémon Database</h1>
 
             {/* Filters */}
-            <div className="flex space-x-4 mb-5">
-                <select onChange={handleTypeChange} value={typeFilter} className="border p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div className="flex space-x-4 mb-5 bg">
+                <select onChange={handleTypeChange} value={typeFilter} className="border p-2 rounded bg-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="">All Types</option>
                 <option value="normal">Normal</option>
                 <option value="fire">Fire</option>
@@ -118,7 +133,7 @@ function PokemonList() {
                 <option value="fairy">Fairy</option>
                 </select>
 
-                <select onChange={handleSortChange} value={sortBy} className="border p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <select onChange={handleSortChange} value={sortBy} className="border p-2 rounded bg-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="pokedex_number">Pokédex Number</option>
                     <option value="name">Name</option>
                     {/* <option value="hp">HP</option>
@@ -127,7 +142,7 @@ function PokemonList() {
                     <option value="speed">Speed</option> */}
                 </select>
 
-                <select onChange={handleOrderChange} value={order} className="border p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <select onChange={handleOrderChange} value={order} className="border p-2 rounded bg-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="asc">Ascending</option>
                 <option value="desc">Descending</option>
                 </select>
