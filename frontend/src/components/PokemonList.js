@@ -90,18 +90,20 @@ function PokemonList() {
       
     /*
         Features to add:
+        Decription of pokemon on the row entries
+        Filter how type is displayed to get rid of 'N/A'
+        slightly more white font color
+        Inside rows add an interior opaque section dividing the sprite from the name and data
+        Filter by Region
+        
+        For way later:
+        Style the Heading and selection buttons to look cooler
+        Mobile responsive Sprite and text size / when screen size small get rid of pokedex description
         Style the modal to look like a pokemon card
             - yellow border
             - HP in the top left with type icon
             - Name in the top right
             - click out of modal/remove close button
-
-        Dark mode toggle
-        Filter by Region
-        White Text for cards???
-        Decription of pokemon on the row entries
-        Inside rows add an interior opaque section dividing the sprite from the name and data
-        Mobile responsive Sprite and text size / when screen size small get rid of pokedex description
 
     */
 
