@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import PokemonDescription from "./PokemonDescription";
 import PokemonModal from './PokemonModal';
 import { getBackgroundStyle } from "../utilities/TypeColors";
 
@@ -41,29 +42,6 @@ function PokemonList() {
         } catch (err) {
         console.error(err);
         }
-    };
-
-    const PokedexEntry = async ({ name }) => {
-        try {
-            const speciesResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`);
-            const speciesData = speciesResponse.data;
-        
-            // Filter for English entries in Pokémon Sword version
-            const englishSwordEntries = speciesData.flavor_text_entries.filter(
-              entry => entry.language.name === 'en' && entry.version.name === 'sword'
-            );
-        
-            if (englishSwordEntries.length > 0) {
-              // Get the first matching entry
-              const pokedexEntry = englishSwordEntries[0].flavor_text;
-              return ( 
-                <p>{pokedexEntry}</p>
-              );
-            }
-        
-          } catch (error) {
-            console.error('Error fetching Pokémon species data:', error);
-          }
     };
 
     const handleTypeChange = (e) => {
@@ -118,12 +96,12 @@ function PokemonList() {
         Add in the abilities to the modal -- DONE
         slightly more white font color -- DONE
         Inside rows add an interior opaque section dividing the sprite from the name and data -- DONE
-        
+        Filter how type is displayed to get rid of 'N/A' -- DONE
+
         Decription of pokemon on the row entries -- WORKING ON IT
 
         Filter by Region
-        Filter how type is displayed to get rid of 'N/A'
-        Filter rows by primary type then the option for secodary type
+        Filter rows by primary type then the option for secondary type
         
         Inside rows add an interior opaque section dividing the sprite from the name and data
         Filter by Region
@@ -194,12 +172,12 @@ function PokemonList() {
                     <img
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.pokedex_number}.png`}
                     alt={poke.name}
-                    className="w-24 h-24"
+                    className="ml-2 w-24 h-24"
                     />
 
                     {/* Pokémon Details */}
-                    <div className='flex flex-1 flex-row items-center ml-2 pt-2 pb-2 rounded-md bg-gradient-to-r from-black/15 to-black/0'>
-                        <div className="flex-1 ml-2 p-2">
+                    <div className='flex gap-8 flex-1 rounded-md ml-2 mt-2 mb-2 bg-gradient-fade shadow'>
+                        <div className="flex-none ml-2 pl-2 pt-2 pb-2">
                             <h2 className="text-xl font-bold">
                                 {poke.name}
                             </h2>
@@ -212,9 +190,8 @@ function PokemonList() {
                             </p>
                         </div>
 
-                        <div className='flex-1 ml-4'>
-                            {/* <p>My paragraph text for now</p> */}
-                            <PokedexEntry name={poke.name} />
+                        <div className='flex-1 flex flex-col items-start pr-2 pt-2 pb-2'>
+                                <PokemonDescription name={poke.name} />
                         </div>
                     </div>
 

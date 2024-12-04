@@ -105,11 +105,11 @@ app.get('/api/pokemon/:name', async (req, res) => {
       const pokemon = result.rows[0];
   
       // Fetch artwork from PokeAPI
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.pokedex_number}`);
-      if (!response.ok) {
+      const artResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.pokedex_number}`);
+      if (!artResponse.ok) {
         throw new Error('Failed to fetch artwork');
       }
-      const data = await response.json();
+      const data = await artResponse.json();
       const artwork = data.sprites.other['official-artwork'].front_default;
       const sprite = data.sprites.front_default;
   

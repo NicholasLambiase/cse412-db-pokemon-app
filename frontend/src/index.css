@@ -4,7 +4,37 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .bg-gradient-fade {
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.05) 50%,
+      rgba(0, 0, 0, 0.15)
+    );
+  }
+}
+
 body {
   @apply bg-gray-800;
   color: antiquewhite;
+}
+
+.container {
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
 }

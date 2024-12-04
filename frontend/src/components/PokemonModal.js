@@ -1,5 +1,4 @@
 import React from 'react';
-import {getTypeColor} from '../utilities/TypeColors'
 
 const Ability = ({ abilities }) => {
   let abilitiesString = '';
