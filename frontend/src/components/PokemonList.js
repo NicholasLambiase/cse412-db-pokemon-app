@@ -28,7 +28,6 @@ function PokemonList() {
         }
       }, [showModal, loading]);
       
-      
 
     const fetchPokemon = async () => {
         const params = {};
@@ -42,6 +41,29 @@ function PokemonList() {
         } catch (err) {
         console.error(err);
         }
+    };
+
+    const PokedexEntry = async ({ name }) => {
+        try {
+            const speciesResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`);
+            const speciesData = speciesResponse.data;
+        
+            // Filter for English entries in Pokémon Sword version
+            const englishSwordEntries = speciesData.flavor_text_entries.filter(
+              entry => entry.language.name === 'en' && entry.version.name === 'sword'
+            );
+        
+            if (englishSwordEntries.length > 0) {
+              // Get the first matching entry
+              const pokedexEntry = englishSwordEntries[0].flavor_text;
+              return ( 
+                <p>{pokedexEntry}</p>
+              );
+            }
+        
+          } catch (error) {
+            console.error('Error fetching Pokémon species data:', error);
+          }
     };
 
     const handleTypeChange = (e) => {
@@ -89,16 +111,29 @@ function PokemonList() {
     };
       
     /*
+        Needs to get done:
+        Get the Rest API to return all attributes for each pokemon from all tables
+
         Features to add:
-        Decription of pokemon on the row entries
+        Add in the abilities to the modal -- DONE
+        slightly more white font color -- DONE
+        Inside rows add an interior opaque section dividing the sprite from the name and data -- DONE
+        
+        Decription of pokemon on the row entries -- WORKING ON IT
+
+        Filter by Region
         Filter how type is displayed to get rid of 'N/A'
-        slightly more white font color
+        Filter rows by primary type then the option for secodary type
+        
         Inside rows add an interior opaque section dividing the sprite from the name and data
         Filter by Region
         
         For way later:
         Style the Heading and selection buttons to look cooler
-        Mobile responsive Sprite and text size / when screen size small get rid of pokedex description
+        Mobile responsive Sprite and text size
+            - when screen size is small get rid of pokedex description
+            - When screen size is large add a large pokedex number to the right edge
+        
         Style the modal to look like a pokemon card
             - yellow border
             - HP in the top left with type icon
@@ -138,10 +173,6 @@ function PokemonList() {
                 <select onChange={handleSortChange} value={sortBy} className="border p-2 rounded bg-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="pokedex_number">Pokédex Number</option>
                     <option value="name">Name</option>
-                    {/* <option value="hp">HP</option>
-                    <option value="attack">Attack</option>
-                    <option value="defense">Defense</option>
-                    <option value="speed">Speed</option> */}
                 </select>
 
                 <select onChange={handleOrderChange} value={order} className="border p-2 rounded bg-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -155,7 +186,7 @@ function PokemonList() {
                 {pokemon.map((poke) => (
                 <div
                     key={poke.id}
-                    className="flex flex-col sm:flex-row items-center rounded-lg p-4 shadow cursor-pointer"
+                    className="flex flex-col sm:flex-row items-center rounded-lg p-2 shadow cursor-pointer"
                     style={getBackgroundStyle(poke.type1, poke.type2)}
                     onClick={() => handleCardClick(poke.name)}
                 >
@@ -167,18 +198,26 @@ function PokemonList() {
                     />
 
                     {/* Pokémon Details */}
-                    <div className="ml-4">
-                    <h2 className="text-xl font-bold">
-                        {poke.name}
-                    </h2>
-                    <p>
-                        <strong>Pokédex Number:</strong> {poke.pokedex_number}
-                    </p>
-                    <p>
-                        <strong>Type:</strong> {poke.type1}
-                        {poke.type2 && ` / ${poke.type2}`}
-                    </p>
+                    <div className='flex flex-1 flex-row items-center ml-2 pt-2 pb-2 rounded-md bg-gradient-to-r from-black/15 to-black/0'>
+                        <div className="flex-1 ml-2 p-2">
+                            <h2 className="text-xl font-bold">
+                                {poke.name}
+                            </h2>
+                            <p>
+                                <strong>Pokédex Number:</strong> {poke.pokedex_number}
+                            </p>
+                            <p>
+                                <strong>Type:</strong> {poke.type1}
+                                {(poke.type2 !== 'N/A') && ` ⋅ ${poke.type2}`}
+                            </p>
+                        </div>
+
+                        <div className='flex-1 ml-4'>
+                            {/* <p>My paragraph text for now</p> */}
+                            <PokedexEntry name={poke.name} />
+                        </div>
                     </div>
+
                 </div>
                 ))}
             </div>

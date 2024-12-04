@@ -1,7 +1,23 @@
 import React from 'react';
+import {getTypeColor} from '../utilities/TypeColors'
+
+const Ability = ({ abilities }) => {
+  let abilitiesString = '';
+  for(const ability of abilities) {
+    if (!abilitiesString) {
+      abilitiesString = `${ability}`;
+    } else {
+      abilitiesString += `, ${ability}`;
+    }
+  }
+  
+  return abilitiesString;
+};
 
 function PokemonModal({ pokemon, onClose }) {
   if (!pokemon) return null;
+
+  const abilities = pokemon.abilities.replace(/'/g, '"');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50">
@@ -24,10 +40,16 @@ function PokemonModal({ pokemon, onClose }) {
           />
           <p>
             <strong>Type:</strong> {pokemon.type1}
-            {pokemon.type2 && ` / ${pokemon.type2}`}
+            {pokemon.type2 !== 'N/A' && ` / ${pokemon.type2}`}
           </p>
           <p>
-            <strong>HP:</strong> {pokemon.hp}
+          <span>
+            <strong>Abilities: </strong>
+            <Ability abilities={JSON.parse(abilities)}/>
+          </span>
+          </p>
+          <p>
+            <strong>HP:</strong> {pokemon.health}
           </p>
           <p>
             <strong>Attack:</strong> {pokemon.attack}
@@ -36,10 +58,10 @@ function PokemonModal({ pokemon, onClose }) {
             <strong>Defense:</strong> {pokemon.defense}
           </p>
           <p>
-            <strong>Special Attack:</strong> {pokemon.sp_attack}
+            <strong>Special Attack:</strong> {pokemon.special_attack}
           </p>
           <p>
-            <strong>Special Defense:</strong> {pokemon.sp_defense}
+            <strong>Special Defense:</strong> {pokemon.special_defense}
           </p>
           <p>
             <strong>Speed:</strong> {pokemon.speed}

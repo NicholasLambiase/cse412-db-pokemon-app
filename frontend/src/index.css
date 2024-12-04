@@ -5,7 +5,6 @@
 @tailwind utilities;
 
 body {
-    @apply bg-gray-800;
-    color: antiquewhite;
-    overflow: overlay;
+  @apply bg-gray-800;
+  color: antiquewhite;
 }

@@ -1,4 +1,4 @@
-const typeColors = {
+export const typeColors = {
     normal: '#A8A77A',
     fire: '#EE8130',
     water: '#6390F0',
@@ -36,4 +36,11 @@ export const getBackgroundStyle = (type1, type2) => {
       };
     }
   };
+
+export const getTypeColor= (type) => {
+  const color = typeColors[type.toLowerCase()] || '#FFFFFF';
+  return {
+    color: color,
+  };
+};
   

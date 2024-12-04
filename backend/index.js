@@ -69,7 +69,34 @@ app.get('/api/pokemon', async (req, res) => {
 app.get('/api/pokemon/:name', async (req, res) => {
     try {
       const { name } = req.params;
-      const result = await pool.query('SELECT * FROM pokemon WHERE name = $1', [name]);
+      const result = await pool.query(`SELECT 
+            p.NAME, 
+            p.height, 
+            p.weight, 
+            p.type1, 
+            p.type2, 
+            p.pokedex_number, 
+            p.generation, 
+            a.abilities, 
+            s.attack, 
+            s.special_attack, 
+            s.speed, 
+            s.special_defense, 
+            s.defense, 
+            s.health
+        FROM 
+            Pokemon p
+        LEFT JOIN 
+            Abilities a 
+        ON 
+            p.NAME = a.NAME
+        LEFT JOIN 
+            Stats s 
+        ON 
+            p.NAME = s.NAME
+        WHERE 
+            p.NAME = $1;`,
+       [name]);
   
       if (result.rows.length === 0) {
         return res.status(404).json({ msg: 'Pokémon not found' });
