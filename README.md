@@ -16,5 +16,7 @@
 ## Technologies Used
 * PostgreSQL<br/>
 * Python<br/>
-* Javascript<br/>
+* React.js<br/>
+* Express.js<br/>
+* TailwindCSS<br/>
 
