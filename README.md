@@ -13,6 +13,33 @@
 
 ## How To Run
 
+### Backend
+Ensure that the .env file contains the following:<br/>
+* DB_HOST=localhost<br/>
+* DB_PORT=5432<br/>
+* DB_USER=pokemonuser<br/>
+* DB_PASSWORD=yourpassword<br/>
+* DB_NAME=pokemon_db<br/>
+
+### Database
+1. Log in to the PostgreSQL shell as the postgres user.<br/>
+`sudo -u postgres psql`<br/>
+
+2. Create a new user pokemonuser and a new database pokemon_db<br/>
+`CREATE USER pokemonUser WITH PASSWORD 'yourpassword';`<br/>
+`CREATE DATABASE pokemon_db;`<br/>
+`GRANT ALL PRIVILEGES ON DATABASE pokemon_db TO pokemonUser;`<br/>
+
+3. Import Pokemon Data<br/>
+Either Import via commands or via Dbeaver<br/>
+
+##### Commands for Pokemon Data Import:<br/>
+navigate to the folder containing the database tables and run the following commands<br/>
+`psql -U pokemonuser -d pokemon_db -c "\copy pokemon FROM 'pokemon.csv' DELIMITER ',' CSV HEADER;"`<br/>
+`psql -U pokemonuser -d pokemon_db -c "\copy abilities FROM 'abilities.csv' DELIMITER ',' CSV HEADER;"`<br/>
+`psql -U pokemonuser -d pokemon_db -c "\copy stats FROM 'stats.csv' DELIMITER ',' CSV HEADER;"`<br/>
+
+
 ## Technologies Used
 * PostgreSQL<br/>
 * Python<br/>
