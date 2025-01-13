@@ -1,6 +1,4 @@
-# CSE 412: Database Management (Fall 2024)
-
-# Pokemon Cards
+# Pokemon Database
 
 ## Introduction
 
